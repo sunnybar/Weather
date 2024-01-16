@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+    <html>
+        
+        <head>
+            <title>WeatherCheck</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+            <style>
+                body {
+                  background-image: url('./assets/BG.jpg');
+                }
+
+                .mainTitle, .secondTitle, .input, .search-button, .ic1{
+                    display: inline-block;
+                    font-family: Roboto
+                }
+                .icon{
+                    object-fit: cover;
+                    width: 100px;
+                    
+                }
+                .search-bar{
+                    margin-left: 50px;
+                }
+                .search-button{
+                    margin-left: 0px;
+                }
+                .search-button:hover{
+                    opacity: 90%;
+                }
+                .search-button:active{
+                    opacity: 70%;
+                }
+                .iconsGrid{
+                }
+                .boxOne{
+                   
+                    
+                }
+                </style>       
+        </head>
+        
+        <body>
+        
+            
+
+            <div class="boxOne">
+                <h1 class="mainTitle"> Check The Weather</h1>
+                <br/>
+                <input class="search-bar" type="text" placeholder="Search">
+                <button class="search-button">Search</button>
+                <br/>
+                <p class="secondTitle">
+                    This is the weather forecast!
+                </p>
+                <br/>
+                <div class="ic1">
+                    <img class="icon" src="assets/ICONS/tile0.jpg"
+                </div>
+                <div class="ic1">
+                    <img class="icon" src="assets/ICONS/tile1.jpg"
+                </div>
+                <div class="ic1">
+                    <img class="icon" src="assets/ICONS/tile2.jpg"
+                </div>
+                <div class="ic1">
+                    <img class="icon" src="assets/ICONS/tile3.jpg"
+                </div>
+                <div class="celsius">
+                    
+                    <p>
+                        0
+                    </p>
+                </div>
+            </div>
+   
+            
+            
+        </body>
+
+    </html>

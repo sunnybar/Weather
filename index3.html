@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <title>Simple Weather App</title>
+    <style>
+        body {
+            font-family: Roboto;
+            margin: 0;
+            /* Remove default margin to avoid unwanted spacing */
+        }
+
+        #background-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: url('PIC.jpg');
+            /* Add your background image path here */
+            background-size: cover;
+            /* Cover the entire background */
+            background-position: center;
+            /* Center the background image */
+            z-index: -1;
+            /* Place the background behind other elements */
+        }
+
+        #weather-container {
+            max-width: 800px;
+            /* Increased max-width */
+            text-align: center;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Add a semi-transparent white background for content */
+            position: relative;
+            /* Ensure position:relative to position pseudo-element */
+            z-index: 1;
+            /* Ensure content is above background */
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 8px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        #weekly-view {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: nowrap;
+            /* Fix containers in one row */
+            overflow-x: auto;
+            /* Add horizontal scrollbar if needed */
+        }
+
+        .day {
+            width: 100px;
+            /* Fixed width for each container */
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .weather-icon {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10%;
+        }
+
+        #weather-info {
+            margin-top: 20px;
+        }
+
+        #city-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="background-container"></div>
+
+    <div id="weather-container">
+        <h2>Weather App</h2>
+        <input type="text" id="locationInput" placeholder="Enter city">
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="city-name"></div>
+        <div>
+            <button onclick="changeForecast('last')">Last Week</button>
+            <button onclick="changeForecast('this')">This Week</button>
+            <button onclick="changeForecast('next')">Next Week</button>
+        </div>
+        <div id="weekly-view"></div>
+        <div id="weather-info"></div>
+    </div>
+
+    <script>
+        function getWeather() {
+            var locationInput = document.getElementById('locationInput');
+            var cityName = document.getElementById('city-name');
+            cityName.textContent = locationInput.value;
+
+            // This is where you would fetch real-time weather data using an API
+            // For simplicity, we'll just display placeholder data
+            var weeklyViewContainer = document.getElementById('weekly-view');
+
+            // Fake data: Generate random weather conditions and temperatures for the current day
+            var currentWeatherConditions = Array.from({ length: 7 }, () => Math.floor(Math.random() * 5));
+            var currentTemperatures = Array.from({ length: 7 }, () => Math.floor(Math.random() * 20) + 10); // Random temperatures between 10 and 30 degrees Celsius
+
+            // Array of icon URLs
+            var iconURLs = [
+                'assets/ICONS/tile0.JPG',
+                'assets/ICONS/tile1.JPG',
+                'assets/ICONS/tile2.JPG',
+                'assets/ICONS/tile3.JPG',
+                'assets/ICONS/tile4.JPG'
+            ];
+
+            // Shortened day names
+            var shortenedDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            // Generate HTML for weekly view
+            var weeklyViewHTML = currentWeatherConditions.map((condition, index) => {
+                return `
+                    <div class="day">
+                        <h3>${shortenedDayNames[index]}</h3>
+                        <img class="weather-icon" src="${iconURLs[condition]}" alt="Weather Icon">
+                        <p>${currentTemperatures[index]}°C</p>
+                    </div>
+                `;
+            }).join('');
+
+            weeklyViewContainer.innerHTML = weeklyViewHTML;
+        }
+
+        function changeForecast(period) {
+            // Generate random data for the selected forecast period
+            var weeklyViewContainer = document.getElementById('weekly-view');
+
+            // Fake data: Generate random weather conditions and temperatures for the selected period
+            var forecastWeatherConditions = Array.from({ length: 7 }, () => Math.floor(Math.random() * 2));
+            var forecastTemperatures = Array.from({ length: 7 }, () => Math.floor(Math.random() * 20) + 10); // Random temperatures between 10 and 30 degrees Celsius
+
+            // Shortened day names
+            var shortenedDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            // Generate HTML for forecast view
+            var forecastViewHTML = forecastWeatherConditions.map((condition, index) => {
+                var iconURL = forecastTemperatures[index] > 20 ? 'assets/ICONS/tile10.JPG' : 'assets/ICONS/tile5.JPG';
+                return `
+                    <div class="day">
+                        <h3>${shortenedDayNames[index]}</h3>
+                        <img class="weather-icon" src="${iconURL}" alt="Weather Icon">
+                        <p>${forecastTemperatures[index]}°C</p>
+                    </div>
+                `;
+            }).join('');
+
+            weeklyViewContainer.innerHTML = forecastViewHTML;
+        }
+    </script>
+
+</body>
+
+</html>
